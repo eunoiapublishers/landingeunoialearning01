@@ -66,6 +66,7 @@ export default function InteractiveCustomizer() {
   const [triggerEmotion, setTriggerEmotion] = useState<string>("Frustrated");
   const [selectedIds, setSelectedIds] = useState<string[]>(["breath", "water", "squeeze", "help"]);
   const [isDemoPrinted, setIsDemoPrinted] = useState<boolean>(false);
+  const [downloading, setDownloading] = useState<boolean>(false);
 
   const handleToggleStrategy = (id: string) => {
     if (selectedIds.includes(id)) {
@@ -91,74 +92,257 @@ export default function InteractiveCustomizer() {
 
   const activeStrategies = ALL_STRATEGIES.filter((s) => selectedIds.includes(s.id));
 
-  const handlePrintTrigger = () => {
-    setIsDemoPrinted(true);
-    setTimeout(() => {
-      window.print();
-    }, 250);
+  const handleDownloadPDF = async () => {
+    try {
+      setDownloading(true);
+      setIsDemoPrinted(true);
+
+      // Create high-resolution canvas matching standard A4/Letter aspect ratio
+      const canvas = document.createElement("canvas");
+      canvas.width = 1200;
+      canvas.height = 1680;
+      const ctx = canvas.getContext("2d");
+      if (!ctx) {
+        setDownloading(false);
+        return;
+      }
+
+      // Configure high-quality rendering
+      ctx.imageSmoothingEnabled = true;
+      ctx.imageSmoothingQuality = "high";
+
+      // 1. Fill solid background
+      ctx.fillStyle = "#fffdf9"; // Soft cream
+      ctx.fillRect(0, 0, 1200, 1680);
+
+      // Helper for rounded corners
+      const drawRoundedRect = (
+        x: number,
+        y: number,
+        w: number,
+        h: number,
+        r: number,
+        fill: boolean,
+        stroke: boolean
+      ) => {
+        ctx.beginPath();
+        ctx.moveTo(x + r, y);
+        ctx.lineTo(x + w - r, y);
+        ctx.quadraticCurveTo(x + w, y, x + w, y + r);
+        ctx.lineTo(x + w, y + h - r);
+        ctx.quadraticCurveTo(x + w, y + h, x + w - r, y + h);
+        ctx.lineTo(x + r, y + h);
+        ctx.quadraticCurveTo(x, y + h, x, y + h - r);
+        ctx.lineTo(x, y + r);
+        ctx.quadraticCurveTo(x, y, x + r, y);
+        ctx.closePath();
+        if (fill) ctx.fill();
+        if (stroke) ctx.stroke();
+      };
+
+      // 2. Draw outer thick orange alert margin
+      ctx.strokeStyle = "#fed7aa"; // Orange 200
+      ctx.lineWidth = 14;
+      drawRoundedRect(30, 30, 1140, 1620, 48, false, true);
+
+      // 3. Draw inner dashed orange border
+      ctx.strokeStyle = "#ea580c"; // Orange 600
+      ctx.lineWidth = 4;
+      ctx.setLineDash([16, 12]);
+      drawRoundedRect(48, 48, 1104, 1584, 34, false, true);
+      ctx.setLineDash([]); // clear dash
+
+      // 4. Draw Header Pill Badge
+      ctx.fillStyle = "#f0fdf4"; // Teal 50
+      ctx.strokeStyle = "#ccfbf1"; // Teal 100
+      ctx.lineWidth = 3;
+      drawRoundedRect(350, 100, 500, 54, 20, true, true);
+
+      ctx.fillStyle = "#0f766e"; // Teal 700
+      ctx.font = "bold 16px sans-serif";
+      ctx.textAlign = "center";
+      ctx.fillText("✨ MY HOME & SCHOOL COPING GUIDE ✨", 600, 133);
+
+      // 5. Hero Title
+      ctx.fillStyle = "#0f172a"; // Slate 900
+      ctx.font = "bold 44px sans-serif";
+      ctx.textAlign = "center";
+      ctx.fillText(`${childName}'s Calm Choices!`, 600, 222);
+
+      // 6. Subtitle line
+      ctx.fillStyle = "#475569"; // Slate 600
+      ctx.font = "normal 21px sans-serif";
+      
+      const part1 = `When I feel `;
+      ctx.textAlign = "right";
+      ctx.fillText(part1, 450, 282);
+
+      // Emotion badge
+      const emotionText = triggerEmotion.toUpperCase();
+      ctx.font = "bold 21px sans-serif";
+      const emotionW = ctx.measureText(emotionText).width;
+
+      ctx.fillStyle = "#fce7f3"; // Pink 100
+      drawRoundedRect(464, 252, emotionW + 28, 40, 12, true, false);
+
+      ctx.fillStyle = "#9d174d"; // Pink 800
+      ctx.textAlign = "center";
+      ctx.fillText(emotionText, 464 + (emotionW + 28) / 2, 280);
+
+      ctx.fillStyle = "#475569"; // Slate 600
+      ctx.font = "normal 21px sans-serif";
+      ctx.textAlign = "left";
+      ctx.fillText(", I can choose these visual steps:", 464 + emotionW + 38, 282);
+
+      // Multi-line helper
+      const wrapText = (text: string, x: number, y: number, maxWidth: number, lineHeight: number) => {
+        const words = text.split(" ");
+        let line = "";
+        let currentY = y;
+        for (let n = 0; n < words.length; n++) {
+          const testLine = line + words[n] + " ";
+          const metrics = ctx.measureText(testLine);
+          if (metrics.width > maxWidth && n > 0) {
+            ctx.fillText(line, x, currentY);
+            line = words[n] + " ";
+            currentY += lineHeight;
+          } else {
+            line = testLine;
+          }
+        }
+        ctx.fillText(line, x, currentY);
+      };
+
+      // 7. Draw 2x2 Grid Layout for Strategies
+      const xCoords = [105, 595];
+      const yCoords = [340, 910];
+      const boxW = 500;
+      const boxH = 510;
+
+      for (let i = 0; i < 4; i++) {
+        const col = i % 2;
+        const row = Math.floor(i / 2);
+        const bx = xCoords[col];
+        const by = yCoords[row];
+
+        const strategy = activeStrategies[i];
+
+        if (strategy) {
+          // Inner card background
+          ctx.beginPath();
+          ctx.fillStyle = "#ffffff";
+          ctx.strokeStyle = "#fed7aa"; // Orange 200
+          ctx.lineWidth = 4;
+          drawRoundedRect(bx, by, boxW, boxH, 28, true, true);
+
+          // Card header strip background
+          ctx.fillStyle = "#fffbeb"; // Amber 50
+          drawRoundedRect(bx + 4, by + 4, boxW - 8, 48, 24, true, false);
+          ctx.fillRect(bx + 4, by + 28, boxW - 8, 24); // fill bottom rounding
+
+          // Round circular number badge
+          ctx.beginPath();
+          ctx.fillStyle = "#0d9488"; // Teal 600
+          ctx.arc(bx + 45, by + 28, 18, 0, Math.PI * 2);
+          ctx.fill();
+
+          ctx.fillStyle = "#ffffff";
+          ctx.font = "bold 16px sans-serif";
+          ctx.textAlign = "center";
+          ctx.fillText(`${i + 1}`, bx + 45, by + 34);
+
+          // Strip Strategy Label Text
+          ctx.fillStyle = "#0f172a"; // Slate 900
+          ctx.font = "bold 18px sans-serif";
+          ctx.textAlign = "left";
+          const shortTitle = strategy.label.split(" ").slice(0, -1).join(" ");
+          ctx.fillText(shortTitle, bx + 78, by + 34);
+
+          // Giant Emoji visual
+          ctx.font = "105px sans-serif";
+          ctx.textAlign = "center";
+          ctx.fillText(strategy.iconName, bx + 250, by + 195);
+
+          // Subtitle Label Body
+          ctx.fillStyle = "#1e293b"; // Slate 800
+          ctx.font = "bold 23px sans-serif";
+          ctx.textAlign = "center";
+          wrapText(strategy.label, bx + 250, by + 270, boxW - 55, 30);
+
+          // Footer Action Cue box
+          ctx.fillStyle = "#fff7ed"; // Orange 50
+          ctx.strokeStyle = "#ffedd5"; // Orange 100
+          ctx.lineWidth = 1.5;
+          drawRoundedRect(bx + 35, by + 380, boxW - 70, 95, 14, true, true);
+
+          // Draw "ACTION STEP" stamp
+          ctx.fillStyle = "#ea580c"; // Orange 600
+          ctx.font = "bold 14px sans-serif";
+          ctx.textAlign = "center";
+          ctx.fillText("ACTION STEP", bx + boxW / 2, by + 408);
+
+          ctx.fillStyle = "#475569"; // Slate 600
+          ctx.font = "italic 16px sans-serif";
+          ctx.fillText(`"${strategy.instruction}"`, bx + boxW / 2, by + 444);
+
+        } else {
+          // Empty state placeholder card
+          ctx.beginPath();
+          ctx.fillStyle = "#f8fafc";
+          ctx.strokeStyle = "#cbd5e1";
+          ctx.lineWidth = 3;
+          ctx.setLineDash([8, 8]);
+          drawRoundedRect(bx, by, boxW, boxH, 28, true, true);
+          ctx.setLineDash([]);
+
+          ctx.fillStyle = "#94a3b8";
+          ctx.font = "bold 20px sans-serif";
+          ctx.textAlign = "center";
+          ctx.fillText("Empty Choice Slot", bx + 250, by + 255);
+        }
+      }
+
+      // 8. Footer banner info stamp
+      ctx.strokeStyle = "#fed7aa"; // Orange 200
+      ctx.lineWidth = 3;
+      ctx.beginPath();
+      ctx.moveTo(105, 1515);
+      ctx.lineTo(1095, 1515);
+      ctx.stroke();
+
+      ctx.fillStyle = "#64748b"; // Slate 500
+      ctx.font = "bold 15px sans-serif";
+      ctx.textAlign = "left";
+      ctx.fillText("🌱 I am learning to take control of my feelings!", 105, 1555);
+
+      ctx.fillStyle = "#0d9488"; // Teal 600
+      ctx.font = "bold 14px sans-serif";
+      ctx.textAlign = "right";
+      ctx.fillText("PROVIDED BY EUNOIA LEARNING", 1095, 1555);
+
+      // Import jsPDF dynamically
+      const { jsPDF } = await import("jspdf");
+
+      // Generate PDF
+      const pdf = new jsPDF({
+        orientation: "portrait",
+        unit: "pt",
+        format: [1200, 1680]
+      });
+
+      const imgData = canvas.toDataURL("image/png", 1.0);
+      pdf.addImage(imgData, "PNG", 0, 0, 1200, 1680, undefined, "FAST");
+      pdf.save(`${childName.toLowerCase().replace(/\s+/g, "_")}_calm_choices.pdf`);
+
+      setDownloading(false);
+    } catch (err) {
+      console.error("PDF generation failed: ", err);
+      setDownloading(false);
+    }
   };
 
   return (
     <section className="py-16 md:py-24 bg-gradient-to-b from-amber-50/20 via-orange-50/15 to-white border-y-2 border-orange-100/30" id="customizer">
-      {/* Print layout override styles */}
-      <style dangerouslySetInnerHTML={{ __html: `
-        @media print {
-          body {
-            background: white !important;
-            margin: 0 !important;
-            padding: 0 !important;
-          }
-          body * {
-            visibility: hidden !important;
-          }
-          #customizer-live-sheet, #customizer-live-sheet * {
-            visibility: visible !important;
-          }
-          #customizer-live-sheet {
-            visibility: visible !important;
-            position: absolute !important;
-            left: 5% !important;
-            top: 5% !important;
-            width: 90% !important;
-            max-width: 650px !important;
-            height: auto !important;
-            aspect-ratio: 1/1.414 !important;
-            border: 4px solid #fed7aa !important;
-            border-radius: 1.8rem !important;
-            box-shadow: none !important;
-            padding: 2.5rem !important;
-            margin: 0 auto !important;
-            -webkit-print-color-adjust: exact !important;
-            print-color-adjust: exact !important;
-          }
-          /* Ensure all nested strategy grids and flex layouts remain visible and aligned in print */
-          #customizer-live-sheet .grid,
-          #customizer-live-sheet [class*="grid-cols-"] {
-            display: grid !important;
-            grid-template-columns: repeat(2, minmax(0, 1fr)) !important;
-            gap: 1.25rem !important;
-          }
-          #customizer-live-sheet .flex {
-            display: flex !important;
-          }
-          #customizer-live-sheet .pb-4 {
-            padding-bottom: 1rem !important;
-          }
-          #customizer-live-sheet .border-b-2 {
-            border-bottom-width: 2px !important;
-          }
-          #customizer-live-sheet .pt-3 {
-            padding-top: 1rem !important;
-          }
-          #customizer-live-sheet .border-t-2 {
-            border-top-width: 2px !important;
-          }
-          #customizer-live-sheet [class*="bg-"] {
-            -webkit-print-color-adjust: exact !important;
-            print-color-adjust: exact !important;
-          }
-        }
-      `}} />
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         
         {/* Section Header */}
@@ -350,12 +534,15 @@ export default function InteractiveCustomizer() {
             {/* Live CTA for customized print */}
             <div className="mt-6 w-full max-w-sm space-y-4">
               <button
-                onClick={handlePrintTrigger}
-                className="w-full flex items-center justify-center gap-2 py-3.5 px-6 bg-amber-500 hover:bg-amber-400 text-white font-display text-sm font-bold rounded-2xl shadow-md cursor-pointer active:scale-98 transition-all"
+                onClick={handleDownloadPDF}
+                disabled={downloading}
+                className={`w-full flex items-center justify-center gap-2 py-3.5 px-6 ${
+                  downloading ? "bg-amber-300 cursor-not-allowed" : "bg-amber-500 hover:bg-amber-400 cursor-pointer active:scale-98"
+                } text-white font-display text-sm font-bold rounded-2xl shadow-md transition-all`}
                 id="customizer-print-btn"
               >
-                <Printer className="w-4 h-4" />
-                <span>Print Custom Selection Card</span>
+                <Printer className={`w-4 h-4 ${downloading ? "animate-spin" : ""}`} />
+                <span>{downloading ? "Generating High-Res PDF..." : "Download Printable Card (PDF)"}</span>
               </button>
               
               <div className="flex items-center gap-2 justify-center bg-teal-50/30 p-2 rounded-xl border border-teal-100">
