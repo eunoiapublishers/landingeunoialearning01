@@ -143,7 +143,7 @@ export default function LeadMagnet() {
                         placeholder="yourname@gmail.com"
                         className="w-full py-3 pl-11 pr-4 bg-white font-sans text-sm text-slate-800 rounded-xl border-2 border-slate-100 focus:border-emerald-400 focus:outline-hidden transition-all placeholder:text-slate-400 shadow-xs"
                         id="optin-email"
-                        autocomplete="email"
+                        autoComplete="email"
                       />
                     </div>
                   </div>
