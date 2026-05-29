@@ -1,5 +1,7 @@
 import React, { useState } from "react";
 import { BookOpen, Smile, Sparkles, CheckSquare, Layers, HelpCircle, ArrowLeft, ArrowRight, Printer, Star } from "lucide-react";
+// @ts-ignore
+import frustratedBoardImg from "../assets/images/frustrated_board_1780027516039.png";
 
 interface Materials {
   id: string;
@@ -91,100 +93,13 @@ const STORY_PAGES = [
     guide: "Observe: Remind your child, 'Yet' is a powerful word. We don't know it YET, but we can learn!"
   },
   {
-    page: 5,
-    title: "My Body Feels Tight",
-    text: "My body feels tight. My shoulders go up, my head feels warm, and my chest feels heavy.",
-    illustration: "✊",
-    bg: "bg-rose-50/65",
-    guide: "Ask: What signs does your body show when you feel stuck?"
-  },
-  {
-    page: 6,
-    title: "I Feel Frustrated",
-    text: "I feel frustrated. My thoughts feel like a big tangled scribbled cloud. That's a normal warning sign.",
-    illustration: "🌀",
-    bg: "bg-red-50/40",
-    guide: "Acknowledge: Frustration is just feedback that our brain is working hard on a puzzle."
-  },
-  {
-    page: 7,
-    title: "I Want to Stop",
-    text: "I want to stop. I want to push my pencil away, drop my eraser, and walk away from my desk.",
-    illustration: "✋",
-    bg: "bg-slate-100",
-    guide: "Validate: It is okay to wish to stop, but let's see how Jim resets his energy."
-  },
-  {
-    page: 8,
-    title: "I Take a Slow Breath",
-    text: "I take a slow breath. I close my eyes and let the cool air fill my chest, then push it out long and slow.",
-    illustration: "🌬️",
-    bg: "bg-emerald-50/50",
-    guide: "Action: Let's follow Jim. Inhale through the nose... and exhale long and slow... Ahh."
-  },
-  {
-    page: 9,
-    title: "I Try One Step",
-    text: "I try one step. I don't have to finish the whole paper right now. I just try the first small part.",
-    illustration: "👣",
-    bg: "bg-teal-50/30",
-    guide: "Action: Encourage them to cover the rest of the page and focus on just one line or box."
-  },
-  {
-    page: 10,
-    title: "Oops... I Made a Mistake",
-    text: "Oops... I made a mistake. My line is outside the box, or my math answer is not quite right.",
-    illustration: "❌",
-    bg: "bg-orange-50/40",
-    guide: "Reassure: Hand-drawn work is always beautiful. Mistakes show that you have the courage to try!"
-  },
-  {
-    page: 11,
-    title: "That's Okay",
-    text: "That's okay. Mistakes are just proof that I am working hard. I can always erase or try a different path.",
-    illustration: "💖",
-    bg: "bg-teal-50",
-    guide: "Repeat: Say after me, 'It is okay to make mistakes. Mistakes are how my brain grows stronger.'"
-  },
-  {
-    page: 12,
-    title: "I Try Again",
-    text: "I try again. I pick up my pencil. I look at the paper. I know I can build this skill.",
-    illustration: "✏️",
-    bg: "bg-emerald-50",
-    guide: "Check: Celebrate the persistence! What happens when we try a second time?"
-  },
-  {
-    page: 13,
-    title: "I Can Ask for Help",
-    text: "If I still feel stuck, I can ask for help. I raise my helper hand and say: 'Can you help me, please?'",
-    illustration: "🙋‍♂️",
-    bg: "bg-sky-50/50",
-    guide: "Practice: Roleplay together! Practice raising a hand and asking clearly for support."
-  },
-  {
-    page: 14,
-    title: "I Keep Going",
-    text: "I keep going. I do another line. I try the next worksheet block. I trust my pacing.",
-    illustration: "🏃",
-    bg: "bg-sky-50/60",
-    guide: "Acknowledge: Focus on the journey. 'Look at how focused your eyes are on the paper!'"
-  },
-  {
-    page: 15,
-    title: "I Did It!",
-    text: "I did it! My paper is complete. I was patient, I used my tools, and I worked through the challenge.",
-    illustration: "⭐",
-    bg: "bg-yellow-50",
-    guide: "Celebrate: Give your child a high five or draw a happy star card together!"
-  },
-  {
-    page: 16,
-    title: "Trying Helps Me Learn",
-    text: "Trying helps me learn. I feel confident and proud. I am capable and independent!",
-    illustration: "🎓",
-    bg: "bg-violet-50/50",
-    guide: "Recap: Ask: Did Jim finish his task by yelling or by resting his body and asking for help?"
+    page: "🔒",
+    isLocked: true,
+    title: "Unlock Pages 5-16 in the Premium Pack!",
+    text: "The full resource pack contains all 16 beautifully illustrated pages of Jim's coping journey, showing how children learn to self-regulate body tension, follow breathing visual steps, resolve hand-drawn slips comfortably, and gain emotional resilience.",
+    illustration: "🔒",
+    bg: "bg-gradient-to-br from-teal-50/30 to-orange-50/30 border-2 border-dashed border-orange-355",
+    guide: "Action: Purchase the full pack on TPT today to access the complete ready-to-print booklet!"
   }
 ];
 
@@ -332,19 +247,44 @@ export default function ProductShowcase() {
                   </div>
 
                   {/* Story Slide Page */}
-                  <div className={`flex-1 p-6 rounded-2xl ${STORY_PAGES[storyPage].bg} border border-slate-100 flex flex-col md:flex-row items-center gap-6 text-left transition-all duration-300`}>
-                    <div className="w-20 h-20 bg-white/70 backdrop-blur-md rounded-2xl flex items-center justify-center text-4xl shadow-sm border border-white filter drop-shadow-md shrink-0">
-                      {STORY_PAGES[storyPage].illustration}
+                  {STORY_PAGES[storyPage].isLocked ? (
+                    <div className="flex-1 p-6 rounded-2xl bg-gradient-to-tr from-amber-50 to-orange-50 border-2 border-dashed border-orange-200 flex flex-col items-center justify-center text-center gap-4 transition-all duration-300 min-h-[180px]">
+                      <div className="w-14 h-14 bg-amber-500 text-white rounded-full flex items-center justify-center text-2xl shadow-md border-4 border-white shrink-0 animate-bounce">
+                        🔒
+                      </div>
+                      <div className="space-y-1 max-w-sm">
+                        <h4 className="font-display text-base font-bold text-slate-900 leading-tight">
+                          {STORY_PAGES[storyPage].title}
+                        </h4>
+                        <p className="font-sans text-xs text-slate-600 leading-relaxed p-1">
+                          {STORY_PAGES[storyPage].text}
+                        </p>
+                        <button
+                          onClick={() => {
+                            const pSection = document.getElementById("purchase");
+                            if (pSection) pSection.scrollIntoView({ behavior: "smooth" });
+                          }}
+                          className="mt-3.5 inline-flex items-center gap-1.5 py-2 px-4.5 bg-gradient-to-s from-teal-600 to-emerald-600 hover:from-teal-500 hover:to-emerald-500 text-white font-display text-xs font-bold rounded-xl shadow-md active:scale-95 transition-all cursor-pointer"
+                        >
+                          <span>Get Full 16-Page Book Kit</span>
+                        </button>
+                      </div>
                     </div>
-                    <div className="space-y-2">
-                      <h4 className="font-display text-lg font-bold text-slate-900">
-                        {STORY_PAGES[storyPage].title}
-                      </h4>
-                      <p className="font-sans text-sm text-slate-600 leading-relaxed">
-                        {STORY_PAGES[storyPage].text}
-                      </p>
+                  ) : (
+                    <div className={`flex-1 p-6 rounded-2xl ${STORY_PAGES[storyPage].bg} border border-slate-100 flex flex-col md:flex-row items-center gap-6 text-left transition-all duration-300`}>
+                      <div className="w-20 h-20 bg-white/70 backdrop-blur-md rounded-2xl flex items-center justify-center text-4xl shadow-sm border border-white filter drop-shadow-md shrink-0">
+                        {STORY_PAGES[storyPage].illustration}
+                      </div>
+                      <div className="space-y-2">
+                        <h4 className="font-display text-lg font-bold text-slate-900">
+                          {STORY_PAGES[storyPage].title}
+                        </h4>
+                        <p className="font-sans text-sm text-slate-600 leading-relaxed">
+                          {STORY_PAGES[storyPage].text}
+                        </p>
+                      </div>
                     </div>
-                  </div>
+                  )}
 
                   {/* Talking prompt advice for educator */}
                   <div className="bg-amber-50/50 p-3 rounded-xl border border-dashed border-amber-200/55 text-left text-[11px] text-slate-500 font-sans">
@@ -455,7 +395,7 @@ export default function ProductShowcase() {
                   {/* Laminated mockup image render */}
                   <div className="relative rounded-2xl overflow-hidden border border-slate-100 bg-slate-50">
                     <img
-                      src="/src/assets/images/frustrated_board_1780027516039.png"
+                      src={frustratedBoardImg}
                       alt="Laminated When I feel frustrated visual coping strategy choice board"
                       className="w-full h-auto object-cover aspect-[4/3] rounded-xl hover:scale-[1.01] transition-transform duration-300"
                       referrerPolicy="no-referrer"

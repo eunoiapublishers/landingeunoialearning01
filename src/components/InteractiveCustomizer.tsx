@@ -100,6 +100,65 @@ export default function InteractiveCustomizer() {
 
   return (
     <section className="py-16 md:py-24 bg-gradient-to-b from-amber-50/20 via-orange-50/15 to-white border-y-2 border-orange-100/30" id="customizer">
+      {/* Print layout override styles */}
+      <style dangerouslySetInnerHTML={{ __html: `
+        @media print {
+          body {
+            background: white !important;
+            margin: 0 !important;
+            padding: 0 !important;
+          }
+          body * {
+            visibility: hidden !important;
+          }
+          #customizer-live-sheet, #customizer-live-sheet * {
+            visibility: visible !important;
+          }
+          #customizer-live-sheet {
+            visibility: visible !important;
+            position: absolute !important;
+            left: 5% !important;
+            top: 5% !important;
+            width: 90% !important;
+            max-width: 650px !important;
+            height: auto !important;
+            aspect-ratio: 1/1.414 !important;
+            border: 4px solid #fed7aa !important;
+            border-radius: 1.8rem !important;
+            box-shadow: none !important;
+            padding: 2.5rem !important;
+            margin: 0 auto !important;
+            -webkit-print-color-adjust: exact !important;
+            print-color-adjust: exact !important;
+          }
+          /* Ensure all nested strategy grids and flex layouts remain visible and aligned in print */
+          #customizer-live-sheet .grid,
+          #customizer-live-sheet [class*="grid-cols-"] {
+            display: grid !important;
+            grid-template-columns: repeat(2, minmax(0, 1fr)) !important;
+            gap: 1.25rem !important;
+          }
+          #customizer-live-sheet .flex {
+            display: flex !important;
+          }
+          #customizer-live-sheet .pb-4 {
+            padding-bottom: 1rem !important;
+          }
+          #customizer-live-sheet .border-b-2 {
+            border-bottom-width: 2px !important;
+          }
+          #customizer-live-sheet .pt-3 {
+            padding-top: 1rem !important;
+          }
+          #customizer-live-sheet .border-t-2 {
+            border-top-width: 2px !important;
+          }
+          #customizer-live-sheet [class*="bg-"] {
+            -webkit-print-color-adjust: exact !important;
+            print-color-adjust: exact !important;
+          }
+        }
+      `}} />
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         
         {/* Section Header */}

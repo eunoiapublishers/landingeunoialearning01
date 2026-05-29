@@ -1,5 +1,7 @@
 import React, { useState } from "react";
 import { Check, Sparkles, Download, Heart, Users, ShieldCheck, Printer } from "lucide-react";
+// @ts-ignore
+import jimCoverImg from "../assets/images/jim_cover_1780027497032.png";
 
 export default function Hero() {
   const [imageError, setImageError] = useState(false);
@@ -118,7 +120,7 @@ export default function Hero() {
                 
                 {!imageError ? (
                   <img
-                    src="/src/assets/images/jim_cover_1780027497032.png"
+                    src={jimCoverImg}
                     alt="Jim Learns and Grows Social Story Ebook Cover"
                     className="w-full h-auto object-cover object-center aspect-[4/5]"
                     id="hero-mockup-image"
