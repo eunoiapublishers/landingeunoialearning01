@@ -117,20 +117,7 @@ export default function HowItHelps() {
           ))}
         </div>
 
-        {/* Sub-quote statement box */}
-        <div className="mt-16 bg-white border border-orange-100/70 p-6 md:p-8 rounded-[2rem] max-w-4xl mx-auto flex flex-col sm:flex-row items-center gap-6 shadow-sm shadow-orange-50 text-left">
-          <div className="w-14 h-14 bg-gradient-to-tr from-orange-200 to-amber-300 rounded-2xl flex items-center justify-center shrink-0 text-3xl font-bold shadow-md shadow-orange-200/50">
-            ☀️
-          </div>
-          <div>
-            <blockquote className="font-sans text-slate-700 text-sm md:text-base italic leading-relaxed font-medium">
-              "We noticed a huge shift within just three days. Instead of ripping her spelling worksheet when she misspells, our daughter now points to her 'Take a Breath' card, blow-out three times, and says 'Can I erase this?' with total composure."
-            </blockquote>
-            <cite className="font-sans text-xs font-bold block text-teal-800 mt-2 not-italic">
-              — Sarah T., Elementary Special Needs Caregiver & Parent of a 7-year-old
-            </cite>
-          </div>
-        </div>
+        {/* Benefit outcomes completed */}
 
       </div>
     </section>

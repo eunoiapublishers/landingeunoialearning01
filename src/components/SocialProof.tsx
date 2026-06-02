@@ -5,39 +5,30 @@ import { Testimonial } from "../types";
 const TESTIMONIALS: Testimonial[] = [
   {
     id: "review-1",
-    author: "Jessica M.",
-    role: "Special Education Teacher (K-2)",
+    author: "Evelyn",
+    role: "ABA therapy",
     rating: 5,
-    comment: "This has been an absolute lifesaver in my autism support classroom. The stories are written so beautifully without any judgmental language. The choice boards are simple enough that my non-readers can indicate their choices without a meltdown. Highly, highly recommend!",
-    source: "Verified Purchaser on Teachers Pay Teachers",
-    avatarInitials: "JM"
+    comment: "Perfect visual support! The layout and colors are soft and muted, which is crucial for neurodivergent kiddos who experience sensory overload. It is rare to find printables crafted with this level of emotional care.",
+    source: "Verified SLP & Behavior Practice Review",
+    avatarInitials: "EV"
   },
   {
     id: "review-2",
-    author: "Teacher Rebecca",
-    role: "Kindergarten Educator",
+    author: "Lisa",
+    role: "mother",
     rating: 5,
-    comment: "I laminated the calm-down strategy cards and put them in our classroom 'Calm Corner'. Now, instead of throwing tantrums, my students walk over, choose a balloon breath card, and do it. It normalized taking a break so well!",
-    source: "Verified Classroom Buyer Review",
-    avatarInitials: "TR"
+    comment: "My daughter struggled with writing mistakes and would rip his papers up. Reading this story changed everything. It gave her the exact sentence to handle the mistake. Pure magic.",
+    source: "Parent Home Growth Review",
+    avatarInitials: "LI"
   },
   {
     id: "review-3",
-    author: "Daniel K.",
-    role: "Parent of 6yo & 8yo",
+    author: "Anna",
+    role: "teacher",
     rating: 5,
-    comment: "Our younger son struggled with writing mistakes and would rip his papers up. Reading Liam the Lion's story changed everything. It gave him the exact sentence ('Can I have an eraser, please?') to handle the mistake. Pure magic.",
-    source: "Parent Home-schooler Review",
-    avatarInitials: "DK"
-  },
-  {
-    id: "review-4",
-    author: "Alina S.",
-    role: "Speech-Language Pathologist",
-    rating: 5,
-    comment: "Perfect visual support! The layout and colors are soft and muted, which is crucial for neurodivergent kiddos who experience sensory overload. It is rare to find printables crafted with this level of emotional care.",
-    source: "Verified SLP Practice Review",
-    avatarInitials: "AS"
+    comment: "This has been an absolute lifesaver in my autism support classroom. The stories are written so beautifully without any judgmental language. The choice boards are simple enough that my non-readers can indicate their choices without a meltdown. Highly, highly recommend!",
+    source: "Verified Classroom Buyer",
+    avatarInitials: "AN"
   }
 ];
 
@@ -76,7 +67,7 @@ export default function SocialProof() {
         </div>
 
         {/* Testimonials Masonry Cards Grid */}
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
           {TESTIMONIALS.map((review) => (
             <div
               key={review.id}

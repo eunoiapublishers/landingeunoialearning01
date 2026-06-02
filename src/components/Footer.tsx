@@ -47,8 +47,8 @@ export default function Footer() {
             <div className="flex items-center gap-2 pt-2 text-xs">
               <Mail className="w-4 h-4 text-teal-400" />
               <span>Contact: </span>
-              <a href="mailto:eunoiapublishers@gmail.com" className="text-white hover:text-teal-400 transition-colors font-bold">
-                eunoiapublishers@gmail.com
+              <a href="mailto:info@eunoiapublishers.com" className="text-white hover:text-teal-400 transition-colors font-bold">
+                info@eunoiapublishers.com
               </a>
             </div>
           </div>

@@ -99,8 +99,8 @@ export default function FAQ() {
           <AlertCircle className="w-5 h-5 text-orange-600 shrink-0" />
           <p className="font-sans text-xs text-slate-600 leading-normal">
             Need a custom licensing option for a multi-classroom school district or health clinic? Contact our gentle support at{" "}
-            <a href="mailto:eunoiapublishers@gmail.com" className="text-teal-700 font-bold underline">
-              eunoiapublishers@gmail.com
+            <a href="mailto:info@eunoiapublishers.com" className="text-teal-700 font-bold underline">
+              info@eunoiapublishers.com
             </a>{" "}
             for bulk invoice orders and custom packets.
           </p>
