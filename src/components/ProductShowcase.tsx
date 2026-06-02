@@ -261,8 +261,7 @@ export default function ProductShowcase() {
                         </p>
                         <button
                           onClick={() => {
-                            const pSection = document.getElementById("purchase");
-                            if (pSection) pSection.scrollIntoView({ behavior: "smooth" });
+                            window.open("https://www.teacherspayteachers.com/store/eunoia-learning", "_blank");
                           }}
                           className="mt-3.5 inline-flex items-center gap-1.5 py-2 px-4.5 bg-gradient-to-s from-teal-600 to-emerald-600 hover:from-teal-500 hover:to-emerald-500 text-white font-display text-xs font-bold rounded-xl shadow-md active:scale-95 transition-all cursor-pointer"
                         >

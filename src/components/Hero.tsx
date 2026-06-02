@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { Check, Sparkles, Download, Heart, Users, ShieldCheck, Printer } from "lucide-react";
+import { Check, Sparkles, Download, Heart, Users, ShieldCheck, Printer, Mail } from "lucide-react";
 // @ts-ignore
 import jimCoverImg from "../assets/images/jim_cover_1780027497032.png";
 
@@ -51,11 +51,11 @@ export default function Hero() {
             {/* CTA Buttons */}
             <div className="flex flex-col sm:flex-row gap-4 max-w-lg">
               <button
-                onClick={() => scrollToSection("purchase")}
+                onClick={() => scrollToSection("products")}
                 className="group flex-1 flex items-center justify-center gap-2 py-4 px-6 bg-gradient-to-r from-teal-600 hover:from-teal-500 to-emerald-600 hover:to-emerald-500 text-white font-display text-base font-bold rounded-2xl shadow-lg shadow-emerald-600/20 active:scale-98 transition-all cursor-pointer"
                 id="hero-cta-main"
               >
-                <span>Get the Resource Pack</span>
+                <span>Explore Resource Pack</span>
                 <Heart className="w-5 h-5 group-hover:scale-110 group-hover:fill-white/10 transition-transform text-white/90" />
               </button>
               <button
@@ -63,8 +63,8 @@ export default function Hero() {
                 className="flex-1 flex items-center justify-center gap-2 py-4 px-6 bg-white hover:bg-orange-50/50 text-emerald-800 font-sans text-sm font-bold rounded-2xl border-2 border-emerald-200 shadow-sm active:scale-98 transition-all cursor-pointer"
                 id="hero-cta-free"
               >
-                <Download className="w-4 h-4" />
-                <span>Get Free Calm Toolkit</span>
+                <Mail className="w-4 h-4 text-emerald-600" />
+                <span>Join Our Newsletter</span>
               </button>
             </div>
 

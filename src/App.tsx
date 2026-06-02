@@ -8,7 +8,7 @@ import InteractiveCustomizer from "./components/InteractiveCustomizer";
 import LeadMagnet from "./components/LeadMagnet";
 import SocialProof from "./components/SocialProof";
 import FAQ from "./components/FAQ";
-import CTASection from "./components/CTASection";
+
 import Footer from "./components/Footer";
 
 export default function App() {
@@ -54,8 +54,7 @@ export default function App() {
         {/* SECTION 8 - ASTUTE ACCORDION FAQS */}
         <FAQ />
 
-        {/* SECTION 9 - FINAL CALM CONVERSION CHECKOUT CTA */}
-        <CTASection />
+
       </main>
 
       {/* FOOTER & SEARCH RELEVANCY */}

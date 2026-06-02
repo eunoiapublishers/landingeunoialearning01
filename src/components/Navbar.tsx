@@ -1,5 +1,5 @@
 import React from "react";
-import { Smile, Heart, Download } from "lucide-react";
+import { Smile, Heart, Download, Mail } from "lucide-react";
 
 export default function Navbar() {
   const scrollToSection = (id: string) => {
@@ -91,7 +91,7 @@ export default function Navbar() {
             className="hover:text-emerald-600 transition-colors cursor-pointer py-1.5 px-2.5 rounded-lg hover:bg-emerald-50/50"
             id="nav-btn-toolkit"
           >
-            Free Toolkit
+            Newsletter
           </button>
           <button 
             onClick={() => scrollToSection("faq")} 
@@ -109,15 +109,15 @@ export default function Navbar() {
             className="hidden sm:flex items-center gap-1.5 py-2 px-4 bg-emerald-50 text-emerald-800 font-semibold text-xs rounded-2xl border-2 border-emerald-200 hover:bg-emerald-100/50 active:scale-98 transition-all cursor-pointer shadow-sm"
             id="nav-cta-free"
           >
-            <Download className="w-3.5 h-3.5" />
-            Free Toolkit
+            <Mail className="w-3.5 h-3.5" />
+            Newsletter
           </button>
           <button
-            onClick={() => scrollToSection("purchase")}
+            onClick={() => window.open("https://www.teacherspayteachers.com/store/eunoia-learning", "_blank")}
             className="py-2 px-4.5 bg-gradient-to-r from-teal-600 to-emerald-600 hover:from-teal-500 hover:to-emerald-500 text-white font-semibold text-sm rounded-2xl shadow-md shadow-emerald-600/10 active:scale-98 transition-all cursor-pointer font-display"
             id="nav-cta-purchase"
           >
-            Get Resource
+            Shop on TPT
           </button>
         </div>
       </div>
