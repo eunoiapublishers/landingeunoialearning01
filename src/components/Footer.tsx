@@ -91,7 +91,7 @@ export default function Footer() {
         <div className="pt-8 flex flex-col sm:flex-row items-center justify-between gap-4 text-[11px] text-slate-400">
           <div>
             <p>© {new Date().getFullYear()} Eunoia Learning. Created with absolute care on TPT.</p>
-            <p className="opacity-60 mt-1">Special Education, Speech Therapy, and Occupational Therapy and Autism Coping Guides. All rights reserved.</p>
+            <p className="opacity-60 mt-1">Special Education and Autism Coping Guides. All rights reserved.</p>
           </div>
 
           <div className="flex items-center gap-1.5">
